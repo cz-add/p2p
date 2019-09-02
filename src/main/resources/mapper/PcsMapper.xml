@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.p2p.mapper.PcsMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.p2p.model.Pcs" >
+    <constructor >
+      <idArg column="cid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="jid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="cname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ctype" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ctiem" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cid, jid, cname, ctype, ctiem
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from p_cs
+    where cid = #{cid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from p_cs
+    where cid = #{cid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zking.p2p.model.Pcs" >
+    insert into p_cs (cid, jid, cname, 
+      ctype, ctiem)
+    values (#{cid,jdbcType=INTEGER}, #{jid,jdbcType=INTEGER}, #{cname,jdbcType=VARCHAR}, 
+      #{ctype,jdbcType=INTEGER}, #{ctiem,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.p2p.model.Pcs" >
+    insert into p_cs
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="jid != null" >
+        jid,
+      </if>
+      <if test="cname != null" >
+        cname,
+      </if>
+      <if test="ctype != null" >
+        ctype,
+      </if>
+      <if test="ctiem != null" >
+        ctiem,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="jid != null" >
+        #{jid,jdbcType=INTEGER},
+      </if>
+      <if test="cname != null" >
+        #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="ctype != null" >
+        #{ctype,jdbcType=INTEGER},
+      </if>
+      <if test="ctiem != null" >
+        #{ctiem,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.p2p.model.Pcs" >
+    update p_cs
+    <set >
+      <if test="jid != null" >
+        jid = #{jid,jdbcType=INTEGER},
+      </if>
+      <if test="cname != null" >
+        cname = #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="ctype != null" >
+        ctype = #{ctype,jdbcType=INTEGER},
+      </if>
+      <if test="ctiem != null" >
+        ctiem = #{ctiem,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.p2p.model.Pcs" >
+    update p_cs
+    set jid = #{jid,jdbcType=INTEGER},
+      cname = #{cname,jdbcType=VARCHAR},
+      ctype = #{ctype,jdbcType=INTEGER},
+      ctiem = #{ctiem,jdbcType=TIMESTAMP}
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+</mapper>

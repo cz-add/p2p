@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.p2p.mapper.PrzMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.p2p.model.Prz" >
+    <constructor >
+      <idArg column="rz" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="uid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="rname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="rztypes" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="state" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="rztime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="rzr" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    rz, uid, rname, rztypes, state, rztime, rzr
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from p_rz
+    where rz = #{rz,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from p_rz
+    where rz = #{rz,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zking.p2p.model.Prz" >
+    insert into p_rz (rz, uid, rname, 
+      rztypes, state, rztime, 
+      rzr)
+    values (#{rz,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{rname,jdbcType=VARCHAR}, 
+      #{rztypes,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, #{rztime,jdbcType=TIMESTAMP}, 
+      #{rzr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.p2p.model.Prz" >
+    insert into p_rz
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rz != null" >
+        rz,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="rname != null" >
+        rname,
+      </if>
+      <if test="rztypes != null" >
+        rztypes,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="rztime != null" >
+        rztime,
+      </if>
+      <if test="rzr != null" >
+        rzr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rz != null" >
+        #{rz,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="rname != null" >
+        #{rname,jdbcType=VARCHAR},
+      </if>
+      <if test="rztypes != null" >
+        #{rztypes,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="rztime != null" >
+        #{rztime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rzr != null" >
+        #{rzr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.p2p.model.Prz" >
+    update p_rz
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="rname != null" >
+        rname = #{rname,jdbcType=VARCHAR},
+      </if>
+      <if test="rztypes != null" >
+        rztypes = #{rztypes,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="rztime != null" >
+        rztime = #{rztime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rzr != null" >
+        rzr = #{rzr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rz = #{rz,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.p2p.model.Prz" >
+    update p_rz
+    set uid = #{uid,jdbcType=INTEGER},
+      rname = #{rname,jdbcType=VARCHAR},
+      rztypes = #{rztypes,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      rztime = #{rztime,jdbcType=TIMESTAMP},
+      rzr = #{rzr,jdbcType=VARCHAR}
+    where rz = #{rz,jdbcType=INTEGER}
+  </update>
+</mapper>

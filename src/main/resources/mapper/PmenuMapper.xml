@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.p2p.mapper.PmenuMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.p2p.model.Pmenu" >
+  <constructor >
+    <idArg column="mid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    <arg column="mname" jdbcType="VARCHAR" javaType="java.lang.String" />
+    <arg column="mtype" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    <arg column="parent_mid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    <arg column="url" jdbcType="VARCHAR" javaType="java.lang.String" />
+    <arg column="position" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    <arg column="icon" jdbcType="VARCHAR" javaType="java.lang.String" />
+  </constructor>
+</resultMap>
+
+  <resultMap id="pmenu" type="com.zking.p2p.model.Pmenu" >
+      <id column="mid" property="mid" javaType="java.lang.Integer" />
+      <result column="mname" property="mname" javaType="java.lang.String" />
+      <result column="mtype" property="mtype" javaType="java.lang.Integer" />
+      <result column="url" property="url" javaType="java.lang.String" />
+    <result column="parent_mid" property="parentMid" javaType="java.lang.Integer" />
+    <result column="position" property="position" javaType="java.lang.Integer" />
+      <result column="icon" property="icon" javaType="java.lang.String" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    mid, mname, mtype, parent_mid, url, position, icon
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from p_menu
+    where mid = #{mid,jdbcType=INTEGER}
+  </select>
+    <select id="selectPmenuById" resultType="pmenu" parameterType="com.zking.p2p.model.Pmenu">
+      select
+      <include refid="Base_Column_List" />
+      from p_menu
+      where parent_mid=#{mid} order by position
+    </select>
+  <select id="selectPmenuByAll" resultType="pmenu" parameterType="com.zking.p2p.model.Pmenu">
+    select
+    <include refid="Base_Column_List" />
+    from p_menu
+    where parent_mid is null order by position
+  </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from p_menu
+    where mid = #{mid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zking.p2p.model.Pmenu" >
+    insert into p_menu (mid, mname, mtype, 
+      parent_mid, url, position, 
+      icon)
+    values (#{mid,jdbcType=INTEGER}, #{mname,jdbcType=VARCHAR}, #{mtype,jdbcType=INTEGER}, 
+      #{parentMid,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{position,jdbcType=INTEGER}, 
+      #{icon,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.p2p.model.Pmenu" >
+    insert into p_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mid != null" >
+        mid,
+      </if>
+      <if test="mname != null" >
+        mname,
+      </if>
+      <if test="mtype != null" >
+        mtype,
+      </if>
+      <if test="parentMid != null" >
+        parent_mid,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="position != null" >
+        position,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mid != null" >
+        #{mid,jdbcType=INTEGER},
+      </if>
+      <if test="mname != null" >
+        #{mname,jdbcType=VARCHAR},
+      </if>
+      <if test="mtype != null" >
+        #{mtype,jdbcType=INTEGER},
+      </if>
+      <if test="parentMid != null" >
+        #{parentMid,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.p2p.model.Pmenu" >
+    update p_menu
+    <set >
+      <if test="mname != null" >
+        mname = #{mname,jdbcType=VARCHAR},
+      </if>
+      <if test="mtype != null" >
+        mtype = #{mtype,jdbcType=INTEGER},
+      </if>
+      <if test="parentMid != null" >
+        parent_mid = #{parentMid,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        position = #{position,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mid = #{mid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.p2p.model.Pmenu" >
+    update p_menu
+    set mname = #{mname,jdbcType=VARCHAR},
+      mtype = #{mtype,jdbcType=INTEGER},
+      parent_mid = #{parentMid,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR},
+      position = #{position,jdbcType=INTEGER},
+      icon = #{icon,jdbcType=VARCHAR}
+    where mid = #{mid,jdbcType=INTEGER}
+  </update>
+</mapper>
