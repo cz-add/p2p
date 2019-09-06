@@ -21,19 +21,24 @@ public class UserRealm extends AuthorizingRealm {
     private static final Integer LOCKED = new Integer(1);
 
 
+    public static Integer getLOCKED() {
+        return LOCKED;
+    }
 
+    public IuserService getIuserService() {
+        return iuserService;
+    }
+
+    public void setIuserService(IuserService iuserService) {
+        this.iuserService = iuserService;
+    }
 
     /**
      *
      */
     //用户对应的角色信息与权限信息都保存在数据库中，通过IUserBiz获取数据
-    private IuserService userService;
-    public IuserService getUserService() {
-        return userService;
-    }
-    public void setUserService(IuserService userService) {
-        this.userService = userService;
-    }
+    private IuserService iuserService;
+
     public UserRealm() {
     }
 
@@ -84,8 +89,8 @@ public class UserRealm extends AuthorizingRealm {
         String username = (String) principalCollection.getPrimaryPrincipal();
         Users user = new Users();
         user.setUname(username);
-        Set<String> permissions = userService.listPermissionsByUserName(user);
-        Set<String> roles = userService.listRolesByUserName(user);
+        Set<String> permissions = iuserService.listPermissionsByUserName(user);
+        Set<String> roles = iuserService.listRolesByUserName(user);
 
         //返回授权信息
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
@@ -107,7 +112,7 @@ public class UserRealm extends AuthorizingRealm {
         String username = (String) authenticationToken.getPrincipal();
         Users user = new Users();
         user.setUname(username);
-        Users u = userService.loadByUsername(user);
+        Users u = iuserService.loadByUsername(user);
 
         if (null == u) {
             throw new UnknownAccountException();//帐号不存在

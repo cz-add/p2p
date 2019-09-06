@@ -1,6 +1,7 @@
 package com.zking.p2p.mapper;
 
 import com.zking.p2p.model.Users;
+import com.zking.p2p.util.PageBean;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -23,5 +24,6 @@ public interface UsersMapper {
     List<String> listPermissionsByUserName(Users user);//查询指定用户拥有的权限
 
     List<String> listRolesByUserName(Users user);//查询指定用户拥有的角色
-
+    List<Users> list(Users users);//查询所有
+    int upjy(Users users);//禁用用户
 }

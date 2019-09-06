@@ -57,6 +57,11 @@
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper</artifactId>
+      <version>5.1.2</version>
+    </dependency>
     <!-- ********************** junit单元测试依赖 ********************** -->
     <dependency>
       <groupId>junit</groupId>

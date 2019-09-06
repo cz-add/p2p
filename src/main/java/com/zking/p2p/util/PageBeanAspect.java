@@ -18,9 +18,10 @@ import java.util.List;
 @Aspect
 public class PageBeanAspect {
 
-    @Around(value = "execution(* *..*service.list*(..))")
+    @Around(value = "execution(* *..*Service.list*(..))")
     public Object invoke(ProceedingJoinPoint joinPoint) throws Throwable {
         // 取出PageBean
+        System.out.println(1);
         Object[] args = joinPoint.getArgs();
         PageBean pageBean = null;
         for (Object obj : args) {
@@ -40,6 +41,7 @@ public class PageBeanAspect {
         // 如果分页，获得总记录数
         if (null != pageBean && pageBean.isPagination() && null != returnValue &&
                 returnValue instanceof List) {
+            System.out.println(123123123);
             List list = (List) returnValue;
             PageInfo pageInfo = new PageInfo(list);
             Long total = pageInfo.getTotal();

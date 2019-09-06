@@ -1,16 +1,20 @@
 package com.zking.p2p.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zking.p2p.mapper.UsersMapper;
 import com.zking.p2p.model.Users;
 import com.zking.p2p.service.IuserService;
 import com.zking.p2p.shiro.PasswordHelper;
+import com.zking.p2p.util.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-@Service("userService")
+@Service("iuserService")
 public class UserServiceImpl implements IuserService {
     @Autowired
     private UsersMapper usersMapper;
@@ -32,15 +36,11 @@ public class UserServiceImpl implements IuserService {
     }
 
     @Override
-    public String doLogin(Users user) {
-        String message = null;
+    public Users doLogin(Users user) {
+
         Users u = usersMapper.selectByUsername(user.getUname());
-        if (null == u || !PasswordHelper.checkCredentials(user.getPassword(), u.getSalt(), u.getPassword())) {
-            message = "帐号或密码错误";
-        } else if (new Integer(1).equals(u.getLocked())) {
-            message = "帐号已锁定，请与管理员联系";
-        }
-        return message;
+
+        return u;
     }
 
     @Override
@@ -51,6 +51,24 @@ public class UserServiceImpl implements IuserService {
     @Override
     public Set<String> listRolesByUserName(Users user) {
         return new HashSet<String>(usersMapper.listRolesByUserName(user));
+    }
+
+    @Override
+    public List<Users> list(Users users, PageBean pageBean) {
+        if(null!=pageBean&&pageBean.isPagination()){
+           PageHelper.startPage(pageBean.getPage(),pageBean.getRows());
+       }
+        List<Users> list = usersMapper.list(users);
+        if(null!=pageBean&&pageBean.isPagination()){
+            PageInfo pageInfo=new PageInfo(list);
+            pageBean.setTotal(pageInfo.getTotal()+"");
+        }
+        return list;
+    }
+
+    @Override
+    public int upjy(Users users) {
+        return usersMapper.upjy(users);
     }
 
     @Override

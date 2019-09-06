@@ -1,5 +1,7 @@
 package com.zking.p2p.util;
 
+import lombok.ToString;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +14,7 @@ public class PageBean {
 
 	private int page = 1;// 页码
 
-	private int rows = 3;// 页大小
+	private int rows = 1;// 页大小
 
 	private int total = 0;// 总记录数
 

@@ -9,6 +9,13 @@
       <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
+
+  <resultMap id="row" type="com.zking.p2p.model.Prole" >
+      <id column="rid" property="rid" javaType="java.lang.Integer" />
+      <result column="rname" property="rname" javaType="java.lang.String" />
+      <result column="available" property="available" javaType="java.lang.Integer" />
+      <result column="content" property="content" javaType="java.lang.String" />
+  </resultMap>
   <sql id="Base_Column_List" >
     rid, rname, available, content
   </sql>
@@ -18,14 +25,29 @@
     from p_role
     where rid = #{rid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="list" resultMap="row" parameterType="prole">
+      select
+     *
+      from p_role where 1=1
+      <if test="rname!=null and rname!=''">
+        and (rname like concat('%',#{rname},'%')  )
+      </if>
+      <if test="content!=null and content!=''">
+        and (content like concat('%',#{content},'%')  )
+      </if>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from p_role
     where rid = #{rid,jdbcType=INTEGER}
   </delete>
+  <delete id="del" parameterType="prole">
+     delete from p_role
+    where rid = #{rid,jdbcType=INTEGER}
+  </delete>
   <insert id="insert" parameterType="com.zking.p2p.model.Prole" >
-    insert into p_role (rid, rname, available, 
+    insert into p_role ( rname,
       content)
-    values (#{rid,jdbcType=INTEGER}, #{rname,jdbcType=VARCHAR}, #{available,jdbcType=INTEGER}, 
+    values ( #{rname,jdbcType=VARCHAR},
       #{content,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zking.p2p.model.Prole" >

@@ -74,12 +74,12 @@
     <!--6) 开启自动代理 -->
     <aop:aspectj-autoproxy/>
     <!-- 使用ehcache缓存 -->
-    <bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-        <property name="configLocation" value="classpath:ehcache.xml"/>
-        <property name="shared" value="true"></property>
-    </bean>
-    <!-- 默认是cacheManager -->
-    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
-        <property name="cacheManager" ref="cacheManagerFactory"/>
-    </bean>
+    <!--<bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">-->
+        <!--<property name="configLocation" value="classpath:ehcache.xml"/>-->
+        <!--<property name="shared" value="true"></property>-->
+    <!--</bean>-->
+    <!--&lt;!&ndash;&lt;!&ndash; 默认是cacheManager &ndash;&gt;&ndash;&gt;-->
+    <!--<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">-->
+        <!--<property name="cacheManager" ref="cacheManagerFactory"/>-->
+    <!--</bean>-->
 </beans>

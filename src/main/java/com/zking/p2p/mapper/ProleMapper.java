@@ -3,6 +3,8 @@ package com.zking.p2p.mapper;
 import com.zking.p2p.model.Prole;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ProleMapper {
     int deleteByPrimaryKey(Integer rid);
@@ -16,4 +18,7 @@ public interface ProleMapper {
     int updateByPrimaryKeySelective(Prole record);
 
     int updateByPrimaryKey(Prole record);
+
+    List<Prole> list(Prole prole);
+    int del(Prole prole);
 }

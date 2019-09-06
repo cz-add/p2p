@@ -11,14 +11,14 @@
     <description>apache shiro配置</description>
 
     <!-- 缓存管理器：本章使用Ehcache实现，也可以换成redis等其它缓存技术 -->
-    <bean id="cacheManagerA" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
         <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
     </bean>
 
     <!-- 凭证匹配器 -->
     <bean id="credentialsMatcher" class="com.zking.p2p.shiro.RetryLimitHashedCredentialsMatcher" init-method="init">
         <!--使用有参数构造方法创建对象，注入缓存管理器-->
-        <constructor-arg ref="cacheManagerA"/>
+        <constructor-arg ref="cacheManager"/>
 
         <!--指定缓存对象的名字-->
         <property name="cacheName" value="passwordRetryCache"/>
@@ -38,7 +38,7 @@
     <!-- Realm实现 -->
     <bean id="userRealm" class="com.zking.p2p.shiro.UserRealm">
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
-        <property name="userService" ref="userService"/>
+        <property name="iuserService" ref="iuserService"/>
     </bean>
 
     <!-- 安全管理器 -->
@@ -65,6 +65,7 @@
                 /                     = anon
                 /user/logout          = logout
                 /user/**              = anon
+                /user/sys             = authc
                 /userInfo/**          = authc
                 /dict/**              = authc
                 /console/**           = roles[admin]
