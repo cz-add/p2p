@@ -10,6 +10,15 @@
       <arg column="ctiem" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
+  <resultMap id="row" type="com.zking.p2p.model.Pcs" >
+    <constructor >
+      <idArg column="cid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="jid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="cname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ctype" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ctiem" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
   <sql id="Base_Column_List" >
     cid, jid, cname, ctype, ctiem
   </sql>
@@ -19,6 +28,13 @@
     from p_cs
     where cid = #{cid,jdbcType=INTEGER}
   </select>
+
+  <select id="list" resultMap="row" parameterType="com.zking.p2p.mapper.PcsMapper">
+    SELECT *
+    from p_cs
+    where 1=1
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from p_cs
     where cid = #{cid,jdbcType=INTEGER}
@@ -86,10 +102,10 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zking.p2p.model.Pcs" >
     update p_cs
-    set jid = #{jid,jdbcType=INTEGER},
+    set
+    jid = #{jid,jdbcType=INTEGER},
       cname = #{cname,jdbcType=VARCHAR},
-      ctype = #{ctype,jdbcType=INTEGER},
-      ctiem = #{ctiem,jdbcType=TIMESTAMP}
+      ctype = #{ctype,jdbcType=INTEGER}
     where cid = #{cid,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -91,8 +91,8 @@ public class PageBean {
 
 	public void setRows(int rows) {
 		this.rows = rows;
-	}
-	
+}
+
 	public void setRows(String rows) {
 		if(null!=rows&&!"".equals(rows.trim())){
 			this.rows = Integer.parseInt(rows);

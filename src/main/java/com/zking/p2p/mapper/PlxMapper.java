@@ -1,9 +1,7 @@
 package com.zking.p2p.mapper;
 
 import com.zking.p2p.model.Plx;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface PlxMapper {
     int deleteByPrimaryKey(Integer lid);
 

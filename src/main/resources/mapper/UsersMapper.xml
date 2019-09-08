@@ -41,6 +41,10 @@
        #{password,jdbcType=VARCHAR}, #{sfz,jdbcType=VARCHAR},
       #{tx,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR})
   </insert>
+  <insert id="Yan" parameterType="com.zking.p2p.model.Users">
+    insert into users(yzm)
+    values (#{yzm,jdbcType=INTEGER})
+  </insert>
   <insert id="insertSelective" parameterType="com.zking.p2p.model.Users">
     insert into users
     <trim prefix="(" suffix=")" suffixOverrides=",">

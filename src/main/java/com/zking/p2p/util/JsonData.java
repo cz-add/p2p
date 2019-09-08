@@ -1,7 +1,10 @@
 package com.zking.p2p.util;
 
+import com.zking.p2p.model.Pjk;
+
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 服务器返回给客户端的JSON格式的数据
