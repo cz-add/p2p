@@ -10,13 +10,15 @@
     <!--<context:component-scan base-package="com.zking.zf"/>-->
 
     <!--1) use-dafault-filters="false"的情况下，根据表达式包含(include-filter)或排除(exclude-filter)指定包-->
-    <context:component-scan base-package="com.zking.p2p" >
-        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    <context:component-scan base-package="com.zking.p2p" use-default-filters="false">
+        <context:include-filter type="regex" expression=".+\.controller\..*"/>
         <!--<context:exclude-filter type="regex" expression=".+\.controller2\..*"/>-->
+        <!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"></context:exclude-filter>-->
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"></context:include-filter>
     </context:component-scan>
 
     <!--2) 此标签默认注册DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter -->
-	<!--两个bean，这两个bean是spring MVC为@Controllers分发请求所必须的。并提供了数据绑定支持，-->
+    <!--两个bean，这两个bean是spring MVC为@Controllers分发请求所必须的。并提供了数据绑定支持，-->
     <!--@NumberFormatannotation支持，@DateTimeFormat支持，@Valid支持，读写XML的支持（JAXB），读写JSON的支持（Jackson）-->
     <mvc:annotation-driven></mvc:annotation-driven>
 
@@ -35,6 +37,7 @@
     <!--<mvc:resources location="/js/" mapping="/js/**"/>-->
 
     <mvc:resources location="/static/" mapping="/static/**"/>
+
     <!--1) 配置国际化资源文件 -->
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basenames">
@@ -52,6 +55,7 @@
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
     </mvc:interceptors>
 
+    <!--配置文件上传解析器(CommonsMultipartResolver)-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <!-- 必须和用户JSP 的pageEncoding属性一致，以便正确解析表单的内容 -->
         <property name="defaultEncoding" value="UTF-8"></property>
@@ -60,9 +64,7 @@
         <!--resolveLazily属性启用是为了推迟文件解析，以便捕获文件大小异常-->
         <property name="resolveLazily" value="true"/>
     </bean>
-    <!--但是，从spring3.1开始DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter的使用已经过时-->
-    <!--spring3.1开始我们应该用RequestMappingHandlerMapping来替换DefaultAnnotationHandlerMapping，-->
-    <!--spring3.1开始我们应该用用RequestMappingHandlerAdapter来替换AnnotationMethodHandlerAdapter-->
+
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <property name="messageConverters">
             <list>
@@ -81,4 +83,5 @@
             </list>
         </property>
     </bean>
+
 </beans>

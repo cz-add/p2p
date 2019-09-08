@@ -24,4 +24,6 @@ public interface IuserService {
     @Transactional(readOnly = true)
     List<Users> list(Users users, PageBean pageBean);//查询所有
     int upjy(Users users);//禁用用户
+
+    Users u(String yzm);
 }

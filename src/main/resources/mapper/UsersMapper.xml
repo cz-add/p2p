@@ -120,7 +120,11 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zking.p2p.model.Users">
+    <insert id="Yan" parameterType="com.zking.p2p.model.Users">
+       insert into users(yzm)
+          values (#{yzm,jdbcType=VARCHAR})
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zking.p2p.model.Users">
     update users
     <set>
       <if test="uname != null">
