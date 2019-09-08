@@ -36,16 +36,7 @@ public class Users {
 
     private Integer locked;//状态
 
-    private String yzm;//验证码
-
-    public String getYoyzm(){
-        return yzm;
-    }
-
-    public void  setYoyzm(String yoyzm){
-        this.yzm = yzm;
-    }
-    public Users(Integer uid, String uname, String realname, String email, String address, String tel, Date time, String password, String sfz, String tx, String salt, Integer locked, String yzm) {
+    public Users(Integer uid, String uname, String realname, String email, String address, String tel, Date time, String password, String sfz, String tx, String salt, Integer locked) {
         this.uid = uid;
         this.uname = uname;
         this.realname = realname;
@@ -58,20 +49,7 @@ public class Users {
         this.tx = tx;
         this.salt = salt;
         this.locked = locked;
-        this.yzm = yzm;
     }
-
-    public String getYzm() {
-        return yzm;
-    }
-
-    public void setYzm(String yzm) {
-        this.yzm = yzm;
-    }
-
-
-
-
 
     public Users() {
         super();
@@ -172,5 +150,4 @@ public class Users {
     public void setLocked(Integer locked) {
         this.locked = locked;
     }
-
 }

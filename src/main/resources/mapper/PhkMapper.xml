@@ -11,15 +11,34 @@
       <arg column="bstatue" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
+
+  <resultMap id="row" type="com.zking.p2p.model.Phk" >
+    <constructor >
+      <idArg column="hid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="uid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="syje" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="hkje" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="htime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="bstatue" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+
   <sql id="Base_Column_List" >
     hid, uid, syje, hkje, htime, bstatue
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" useCache="true">
     select 
     <include refid="Base_Column_List" />
     from p_hk
     where hid = #{hid,jdbcType=INTEGER}
   </select>
+
+
+  <select id="list" resultMap="row" parameterType="com.zking.p2p.mapper.PhkMapper">
+  select *,(syje-hkje)yhje from p_hk
+</select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from p_hk
     where hid = #{hid,jdbcType=INTEGER}
@@ -98,10 +117,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zking.p2p.model.Phk" >
     update p_hk
-    set uid = #{uid,jdbcType=INTEGER},
+    set
       syje = #{syje,jdbcType=DOUBLE},
       hkje = #{hkje,jdbcType=DOUBLE},
-      htime = #{htime,jdbcType=TIMESTAMP},
       bstatue = #{bstatue,jdbcType=INTEGER}
     where hid = #{hid,jdbcType=INTEGER}
   </update>

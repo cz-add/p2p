@@ -7,12 +7,87 @@
       <arg column="jname" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="uid" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="jje" jdbcType="DOUBLE" javaType="java.lang.Double" />
-      <arg column="brate" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="brate" jdbcType="DOUBLE" javaType="java.lang.Double" />
       <arg column="jtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="jqx" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="hkfs" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
+
+  <resultMap id="row" type="com.zking.p2p.model.Pjk" >
+    <constructor >
+      <idArg column="jid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="jname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="uid" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="jje" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="brate" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="jtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="jqx" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="hkfs" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+
+  <resultMap id="row1" type="com.zking.p2p.model.Pjk" >
+      <id column="jid" property="jid" javaType="java.lang.Integer" />
+      <result column="jname" property="jname" javaType="java.lang.String" />
+      <result column="uid" property="uid" javaType="java.lang.String" />
+      <result column="jje" property="jje" javaType="java.lang.Double" />
+      <result column="brate" property="brate" javaType="java.lang.Double" />
+      <result column="jtime" property="jtime" javaType="java.util.Date" />
+      <result column="jqx" property="jqx" javaType="java.lang.Integer" />
+      <result column="hkfs" property="hkfs" javaType="java.lang.Integer" />
+      <result column="lx" property="lx" javaType="java.lang.Double" />
+  </resultMap>
+
+  <resultMap id="row2" type="com.zking.p2p.model.Pjk" >
+    <id column="jid" property="jid" javaType="java.lang.Integer" />
+    <result column="jname" property="jname" javaType="java.lang.String" />
+    <result column="uid" property="uid" javaType="java.lang.String" />
+    <result column="jje" property="jje" javaType="java.lang.Double" />
+    <result column="brate" property="brate" javaType="java.lang.Double" />
+    <result column="jtime" property="jtime" javaType="java.util.Date" />
+    <result column="jqx" property="jqx" javaType="java.lang.Integer" />
+    <result column="hkfs" property="hkfs" javaType="java.lang.Integer" />
+    <collection property="pfkList" ofType="com.zking.p2p.model.Pfk">
+      <id column="fid" property="fid"/>
+      <result column="platform" property="platform"/>
+    </collection>
+  </resultMap>
+
+  <resultMap id="row3" type="com.zking.p2p.model.Pjk" >
+    <id column="jid" property="jid" javaType="java.lang.Integer" />
+    <result column="jname" property="jname" javaType="java.lang.String" />
+    <result column="uid" property="uid" javaType="java.lang.String" />
+    <result column="jje" property="jje" javaType="java.lang.Double" />
+    <result column="brate" property="brate" javaType="java.lang.Double" />
+    <result column="jtime" property="jtime" javaType="java.util.Date" />
+    <result column="jqx" property="jqx" javaType="java.lang.Integer" />
+    <result column="hkfs" property="hkfs" javaType="java.lang.Integer" />
+    <collection property="plxList" ofType="com.zking.p2p.model.Plx">
+      <id column="lid" property="lid"/>
+      <result column="jklx" property="jklx"/>
+      <result column="lx" property="lx"/>
+    </collection>
+  </resultMap>
+
+  <resultMap id="row4" type="com.zking.p2p.model.Pjk" >
+    <id column="jid" property="jid" javaType="java.lang.Integer" />
+    <result column="jname" property="jname" javaType="java.lang.String" />
+    <result column="uid" property="uid" javaType="java.lang.String" />
+    <result column="jje" property="jje" javaType="java.lang.Double" />
+    <result column="brate" property="brate" javaType="java.lang.Double" />
+    <result column="jtime" property="jtime" javaType="java.util.Date" />
+    <result column="jqx" property="jqx" javaType="java.lang.Integer" />
+    <result column="hkfs" property="hkfs" javaType="java.lang.Integer" />
+    <collection property="yqlist" ofType="com.zking.p2p.model.Plx">
+      <id column="lid" property="lid"/>
+      <result column="yqlx" property="yqlx"/>
+      <result column="yq" property="yq"/>
+    </collection>
+  </resultMap>
+
+
+
   <sql id="Base_Column_List" >
     jid, jname, uid, jje, brate, jtime, jqx, hkfs
   </sql>
@@ -22,18 +97,42 @@
     from p_jk
     where jid = #{jid,jdbcType=INTEGER}
   </select>
+  <select id="list" resultMap="row" parameterType="com.zking.p2p.mapper.PjkMapper">
+    SELECT *
+    from p_jk
+    where 1=1
+  </select>
+
+  <select id="listlx" resultMap="row1" parameterType="com.zking.p2p.mapper.PjkMapper">
+  select *,(jje*brate)lx from p_jk
+</select>
+
+  <select id="listplatform" resultMap="row2" parameterType="com.zking.p2p.mapper.PjkMapper">
+    select a.*,b.* from p_jk a,p_fk b where a.jid = b.jid and a.jid=a.jid
+  </select>
+
+  <select id="listjklx" resultMap="row3" parameterType="com.zking.p2p.mapper.PjkMapper">
+    select a.*,b.*,(a.jje*b.jklx)lx from p_jk a,p_lx b where a.jid = b.jid
+  </select>
+
+  <select id="listyqlx" resultMap="row4" parameterType="com.zking.p2p.mapper.PjkMapper">
+  select a.*,b.*,(a.jje*b.yqlx)yq from p_jk a,p_lx b where a.jid = b.jid and a.jid=b.jid
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from p_jk
     where jid = #{jid,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.zking.p2p.model.Pjk" >
     insert into p_jk (jid, jname, uid, 
-      jje, brate, jtime, 
+      jje, brate,
       jqx, hkfs)
     values (#{jid,jdbcType=INTEGER}, #{jname,jdbcType=VARCHAR}, #{uid,jdbcType=VARCHAR}, 
-      #{jje,jdbcType=DOUBLE}, #{brate,jdbcType=VARCHAR}, #{jtime,jdbcType=TIMESTAMP}, 
+      #{jje,jdbcType=DOUBLE}, #{brate,jdbcType=DOUBLE},
       #{jqx,jdbcType=INTEGER}, #{hkfs,jdbcType=INTEGER})
   </insert>
+
   <insert id="insertSelective" parameterType="com.zking.p2p.model.Pjk" >
     insert into p_jk
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -76,7 +175,7 @@
         #{jje,jdbcType=DOUBLE},
       </if>
       <if test="brate != null" >
-        #{brate,jdbcType=VARCHAR},
+        #{brate,jdbcType=DOUBLE},
       </if>
       <if test="jtime != null" >
         #{jtime,jdbcType=TIMESTAMP},
@@ -102,7 +201,7 @@
         jje = #{jje,jdbcType=DOUBLE},
       </if>
       <if test="brate != null" >
-        brate = #{brate,jdbcType=VARCHAR},
+        brate = #{brate,jdbcType=DOUBLE},
       </if>
       <if test="jtime != null" >
         jtime = #{jtime,jdbcType=TIMESTAMP},
@@ -120,9 +219,8 @@
     update p_jk
     set jname = #{jname,jdbcType=VARCHAR},
       uid = #{uid,jdbcType=VARCHAR},
-      jje = #{jje,jdbcType=DOUBLE},
-      brate = #{brate,jdbcType=VARCHAR},
-      jtime = #{jtime,jdbcType=TIMESTAMP},
+      jje = #{brate,jdbcType=DOUBLE},
+      brate = #{brate,jdbcType=DOUBLE},
       jqx = #{jqx,jdbcType=INTEGER},
       hkfs = #{hkfs,jdbcType=INTEGER}
     where jid = #{jid,jdbcType=INTEGER}
