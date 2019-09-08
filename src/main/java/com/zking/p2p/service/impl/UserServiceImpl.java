@@ -72,6 +72,11 @@ public class UserServiceImpl implements IuserService {
     }
 
     @Override
+    public Users u(String yzm) {
+        return usersMapper.Yan(yzm);
+    }
+
+    @Override
     public int updatePassword(Users user) {
         //md5+盐
         String salt = PasswordHelper.createSalt();

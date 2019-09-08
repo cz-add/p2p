@@ -15,9 +15,12 @@
       <result column="tx" property="tx" javaType="java.lang.String" />
       <result column="salt" property="salt" javaType="java.lang.String"  />
       <result column="locked" property="locked" javaType="java.lang.Integer" />
+      <result column="yzm" property="yzm" javaType="java.lang.String"/>
   </resultMap>
+
+
   <sql id="Base_Column_List">
-    uid, uname, realname, email, address, tel, time, password, sfz, tx, salt, locked
+    uid, uname, realname, email, address, tel, time, password, sfz, tx, salt, locked, yzm
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer"  resultMap="BaseResultMap">
     select 
@@ -35,11 +38,11 @@
     uname, realname,
       email, address, tel, 
        password, sfz,
-      tx, salt)
+      tx, salt, yzm)
     values ( #{uname,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR},
       #{email,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
        #{password,jdbcType=VARCHAR}, #{sfz,jdbcType=VARCHAR},
-      #{tx,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR})
+      #{tx,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{yzm,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.zking.p2p.model.Users">
     insert into users
@@ -80,6 +83,9 @@
       <if test="locked != null">
         locked,
       </if>
+      <if test="yzm !=null">
+        yzm,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="uid != null">
@@ -118,7 +124,14 @@
       <if test="locked != null">
         #{locked,jdbcType=INTEGER},
       </if>
+      <if test="yzm !=null">
+        #{yzm,jdbcType=INTEGER},
+      </if>
     </trim>
+  </insert>
+  <insert id="Yan" parameterType="com.zking.p2p.model.Users">
+    insert into users(yzm)
+    values (#{yzm,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.zking.p2p.model.Users">
     update users
@@ -171,7 +184,8 @@
       sfz = #{sfz,jdbcType=VARCHAR},
       tx = #{tx,jdbcType=VARCHAR},
       salt = #{salt,jdbcType=VARCHAR},
-      locked = #{locked,jdbcType=INTEGER}
+      locked = #{locked,jdbcType=INTEGER},
+      yzm = #{yzm,jdbcType=INTEGER},
     where uid = #{uid,jdbcType=INTEGER}
   </update>
     <update id="upjy" parameterType="users">

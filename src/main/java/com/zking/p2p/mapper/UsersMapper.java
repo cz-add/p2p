@@ -26,4 +26,6 @@ public interface UsersMapper {
     List<String> listRolesByUserName(Users user);//查询指定用户拥有的角色
     List<Users> list(Users users);//查询所有
     int upjy(Users users);//禁用用户
+
+    Users Yan(String tel);
 }
